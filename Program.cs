@@ -1,46 +1,47 @@
-﻿//Задача 52.Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+﻿//Задача 47.Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
 
-//Например, задан массив:
-//1 4 7 2
-//5 9 2 3
-//8 4 2 4
-//Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
+//m = 3, n = 4.
+
+//0,5 7 -2 -0,2
+
+//1 -3,3 8 -9,9
+
+//8 7,8 -7,1 9
 
 using static System.Console;
 Clear();
 
 
-int[,] arr = new int[,]
-    {
-    {1,4,7,2},
-    {5,9,2,3},
-    {8,4,2,4}
-    };
+Write("Strings in array:");
+int m = int.Parse(ReadLine());
+Write("Columns in an array:");
+int n = int.Parse(ReadLine());
+double[,] arr = new double[m, n];
+
+fillArr(arr);
+printArr(arr);
 
 
-printColAverage(arr);
-
-
-void printColAverage(int[,]arr)
+void fillArr(double[,] arr)
 {
-    
-    Write("Arithmetic mean of each column:");
-    int[,] revertArr = new int[arr.GetLength(1), arr.GetLength(0)];
-    for (int i = 0; i < revertArr.GetLength(0); i++)
+    for (int i = 0; i < arr.GetLength(0); i++)
     {
-        for (int j = 0; j < revertArr.GetLength(1); j++)
+        for (int j = 0; j < arr.GetLength(1); j++)
         {
-            revertArr[i,j] = arr[j,i];
+            Random x = new Random();
+            arr[i, j] = Convert.ToDouble(x.Next(-100, 100) / 10.0);
+
         }
     }
-    double[] counter=new double[revertArr.GetLength(0)];
-    for (int i = 0; i < revertArr.GetLength(0); i++)
+}
+void printArr(double[,] arr)
+{
+    for (int i = 0; i < arr.GetLength(0); i++)
     {
-        for (int j = 0; j < revertArr.GetLength(1); j++)
+        for (int j = 0; j < arr.GetLength(1); j++)
         {
-            counter[i] += revertArr[i, j];
+            Write($"{arr[i, j]} ");
         }
-        Write($"{Math.Round(counter[i]/ revertArr.GetLength(1),2)} ");
+        Write("\n");
     }
-    
 }
